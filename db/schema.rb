@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141219213256) do
+ActiveRecord::Schema.define(version: 20141219225824) do
+
+  create_table "topics", force: true do |t|
+    t.string   "text",       default: "", null: false
+    t.integer  "parent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "topics", ["parent_id"], name: "index_topics_on_parent_id"
 
   create_table "user_sessions", force: true do |t|
     t.integer  "user_id"
