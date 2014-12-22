@@ -22,6 +22,15 @@ class TopicsController < ApplicationController
     @topic = Topic.find(params[:id])
   end
 
+  def edit_text
+    topic = Topic.find(params[:id])
+    if topic and params[:text]
+      topic.text = params[:text]
+      topic.save
+    end
+    redirect_to :back
+  end
+
   def destroy
     topic = Topic.find(params[:id])
     topic.destroy

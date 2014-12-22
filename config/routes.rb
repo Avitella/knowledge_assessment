@@ -4,12 +4,13 @@ Rails.application.routes.draw do
   resources :users
   resources :user_sessions
 
-  get  '/topics',             to: 'topics#index',   as: :topics
-  get  '/topics/all',         to: 'topics#all',     as: :all_topics
-  get  '/topics/:id',         to: 'topics#show',    as: :topic
-  get  '/topics/destroy/:id', to: 'topics#destroy', as: :topic_destroy
-  post '/topics/new',         to: 'topics#new',     as: :new_topic
-  get  '/topics/edit/:id',    to: 'topics#edit',    as: :edit_topic
+  get  '/topics',               to: 'topics#index',     as: :topics
+  get  '/topics/all',           to: 'topics#all',       as: :all_topics
+  get  '/topics/:id',           to: 'topics#show',      as: :topic
+  get  '/topics/destroy/:id',   to: 'topics#destroy',   as: :topic_destroy
+  post '/topics/new',           to: 'topics#new',       as: :new_topic
+  get  '/topics/edit/:id',      to: 'topics#edit',      as: :edit_topic
+  post '/topics/edit_text/:id', to: 'topics#edit_text', as: :edit_topic_text
 
   get  '/questions',             to: 'questions#index',   as: :questions
   get  '/questions/:id',         to: 'questions#show',    as: :question
