@@ -1,0 +1,18 @@
+h1 Темы
+- if Topic.exists?
+  table
+    thead
+      tr
+        th.id = "Идентификатор"
+        th.text = "Текст"
+    tbody
+      - Topic.find_each do |t|
+        tr
+          td.id = t.id
+          td.text = t.text
+          td
+            a href="#{edit_topic_path(t.id)}" Редактировать
+          td
+            a href="#{topic_destroy_path(t.id)}" Удалить
+
+
