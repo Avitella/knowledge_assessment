@@ -1,62 +1,27 @@
 Rails.application.routes.draw do
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
   root 'welcome#index'
-
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
   
   resources :users
   resources :user_sessions
 
+  get  '/topics',             to: 'topics#index',   as: :topics
+  get  '/topics/:id',         to: 'topics#show',    as: :topic
+  get  '/topics/destroy/:id', to: 'topics#destroy', as: :topic_destroy
+  post '/topics/new',         to: 'topics#new',     as: :new_topic
+  get  '/topics/edit/:id',    to: 'topics#edit',    as: :edit_topic
+
+  get  '/questions',             to: 'questions#index',   as: :questions
+  get  '/questions/:id',         to: 'questions#show',    as: :question
+  get  '/questions/destroy/:id', to: 'questions#destroy', as: :question_destroy
+  post '/questions/new',         to: 'questions#new',     as: :new_question
+  post '/questions/edit/:id',    to: 'questions#edit',    as: :edit_question
+  get  '/questions/show/:id',    to: 'questions#show',    as: :show_question
+
+  get  '/answers',             to: 'answers#index',   as: :answers
+  get  '/answers/destroy/:id', to: 'answers#destroy', as: :answer_destroy
+  post '/answers/new',         to: 'answers#new',     as: :new_answer
+  post '/answers/edit/:id',    to: 'answers#edit',    as: :edit_answer
+
   get 'login'  => 'user_sessions#new', as: :login
   get 'logout' => 'user_sessions#destroy', as: :logout
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
 end

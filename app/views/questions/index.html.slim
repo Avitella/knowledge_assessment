@@ -1,0 +1,23 @@
+h1 Все вопросы
+- if Question.exists?
+  table
+    thead
+      tr
+        th.topic_id = "Тема"
+        th.id = "Идентификатор"
+        th.text = "Текст"
+        th.difficulty = "Сложность"
+    tbody
+      - Question.find_each do |t|
+        tr
+          td.topic_id = t.topic_id
+          td.id = t.id
+          td.text = t.text
+          td.difficulty = t.difficulty
+          td
+            a href="#{show_question_path(t.id)}" Редактировать
+          td
+            a href="#{question_destroy_path(t.id)}" Удалить
+
+- else
+  p Пока не добавлено ни одного вопроса

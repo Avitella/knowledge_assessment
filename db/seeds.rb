@@ -5,3 +5,5 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Topic.create([{ id: 1, text: "Parent Topic!" }, { id: 2, text: "Topic!", parent_id: 1 }])
