@@ -24,6 +24,12 @@ Rails.application.routes.draw do
   post '/answers/new',         to: 'answers#new',     as: :new_answer
   post '/answers/edit/:id',    to: 'answers#edit',    as: :edit_answer
 
+  get  '/tests',             to: 'tests#index',   as: :tests
+  get  '/tests/new',         to: 'tests#new',     as: :new_test
+  get  '/tests/:id',         to: 'tests#show',    as: :test
+  get  '/tests/destroy/:id', to: 'tests#destroy', as: :test_destroy
+  post '/tests',             to: 'tests#save',    as: :save_test
+
   get 'login'  => 'user_sessions#new', as: :login
   get 'logout' => 'user_sessions#destroy', as: :logout
 end

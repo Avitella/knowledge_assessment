@@ -1,0 +1,14 @@
+h3 Генерация теста
+form method="post" action="#{save_test_path}"
+  input type="text" placeholder="Имя теста" name="name"
+  - @topics.each do |offset, topic|
+    div class="row"
+      - if offset > 0
+        - for i in 0..offset - 2
+          div class="large-1 column"
+            p &#x2193;
+        div class="large-1 column"
+          p &#x21b3;
+      div class="large-#{12 - offset} column"
+        input type="checkbox" id="box#{topic.id}" name="#{topic.id}"
+        label for="box#{topic.id}" #{topic.text}
