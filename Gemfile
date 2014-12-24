@@ -38,6 +38,8 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# HTML templates
 gem 'slim'
 
-gem 'pg'
+# Generator of test tasks
+gem 'tasks_generator', '>= 1.1'

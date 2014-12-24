@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141220015211) do
+ActiveRecord::Schema.define(version: 20141224232556) do
 
   create_table "answers", force: true do |t|
     t.text     "text",        default: "", null: false
@@ -32,6 +32,13 @@ ActiveRecord::Schema.define(version: 20141220015211) do
   end
 
   add_index "questions", ["topic_id"], name: "index_questions_on_topic_id"
+
+  create_table "tests", force: true do |t|
+    t.text     "text",                   null: false
+    t.integer  "enabled",    default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "topics", force: true do |t|
     t.string   "text",       default: "", null: false
@@ -62,5 +69,15 @@ ActiveRecord::Schema.define(version: 20141220015211) do
   end
 
   add_index "users", ["login"], name: "index_users_on_login", unique: true
+
+  create_table "variants", force: true do |t|
+    t.integer  "test_id"
+    t.integer  "number",      null: false
+    t.integer  "question_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "variants", ["test_id", "number", "question_id"], name: "index_variants_on_test_id_and_number_and_question_id", unique: true
 
 end

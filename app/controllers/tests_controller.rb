@@ -38,6 +38,61 @@ class TestsController < ApplicationController
   end
 
   def save
+    tops = []
+    params.each do |key, value|
+      if key.include? "topic_id:"
+        s = key["topic_id:".length...key.length]
+        tops.push(s.to_i)
+      end
+    end
+
+    config = TasksGenerator::Config.new
+    config.variants_count = params[:variants_count].to_i
+    config.questions_count = params[:questions_count].to_i
+    config.topics = tops
+
+    topics = []
+    Topic.find_each do |t|
+      topic_id = t.id
+      parent_id = t.parent_id ? t.parent_id : 0
+      text = t.text
+      topics.push(TasksGenerator::Topic.new(topic_id, parent_id, text))
+    end
+
+    if not topics
+      redirect_to :back
+      return
+    end
+
+    questions = []
+    Question.find_each do |q|
+      question_id = q.id
+      topic_id = q.topic_id
+      difficulty = q.difficulty
+      text = q.text
+      questions.push(TasksGenerator::Question.new(question_id, topic_id, difficulty, text))
+    end
+
+    generator = TasksGenerator::Generator.new(config, topics, questions)
+
+    variants = generator.generate()
+
+    ActiveRecord::Base.transaction do
+      test = Test.new
+      test.text = params[:name]
+      test.save
+      number = 1
+      variants.each do |variant|
+        variant.each do |q|
+          var = Variant.new
+          var.test_id = test.id
+          var.number = number
+          var.question_id = q.question_id
+          var.save
+        end
+        number += 1
+      end
+    end
 
     redirect_to :back
   end
