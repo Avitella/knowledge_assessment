@@ -1,4 +1,7 @@
 class TestsController < ApplicationController
+  before_action :require_teacher
+  skip_before_filter :require_teacher, only: [:run]
+  
   def new
     topics_root = []
     topics_tree = {}
@@ -111,21 +114,39 @@ class TestsController < ApplicationController
       test.text = params[:name]
       test.questions_count = params[:questions_count]
       test.variants_count = params[:variants_count]
+      test.minutes = params[:minutes_count]
       test.save
       number = 1
-      variants.each do |variant|
-        variant.each do |q|
-          var = Variant.new
-          var.test_id = test.id
-          var.number = number
-          var.question_id = q.question_id
-          var.save
+      variants.each do |var|
+        variant = Variant.new
+        variant.test_id = test.id
+        variant.number = number
+        variant.save
+        var.each do |q|
+          variant_question = QuestionsVariants.new
+          variant_question.variant_id = variant.id
+          variant_question.question_id = q.question_id
+          variant_question.save
         end
         number += 1
       end
     end
 
     redirect_to tests_path
+  end
+
+  def run
+    @test = Test.find(params[:id])
+    if not @test
+      redirect_to :back and return
+    end
+    # TODO: Check current test is running
+    @variant = Variant.find_by(test_id: @test.id, number: rand(@test.variants_count) + 1)
+    @variants = @variant.question.shuffle
+    @questions = []
+    @variants.each do |v|
+      @questions.push([@questions.length + 1, v, v.answer.shuffle])
+    end
   end
 
   private

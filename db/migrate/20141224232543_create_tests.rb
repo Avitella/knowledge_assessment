@@ -5,6 +5,7 @@ class CreateTests < ActiveRecord::Migration
       t.integer :on,              null: false, default: 0
       t.integer :variants_count,  null: false, default: 0
       t.integer :questions_count, null: false, default: 0
+      t.integer :minutes,         null: false, default: 0
 
       t.timestamps
     end

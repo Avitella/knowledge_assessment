@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  before_action :require_teacher
+
   def new
     if params[:topic_id] and params[:difficulty]
       question = Question.new

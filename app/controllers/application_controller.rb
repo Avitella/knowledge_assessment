@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   def require_teacher
     user = current_user
     if not user or user.teacher != 1
-      redirect_to root_path
+      redirect_to login_path
     end
   end
 

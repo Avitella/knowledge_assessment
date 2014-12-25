@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'tests#index'
+  root 'welcome#index'
   
   resources :users
   resources :user_sessions
@@ -30,6 +30,9 @@ Rails.application.routes.draw do
   get  '/tests/destroy/:id', to: 'tests#destroy', as: :test_destroy
   post '/tests',             to: 'tests#save',    as: :save_test
   post '/tests/edit',        to: 'tests#edit',    as: :edit_tests
+  get  '/tests/run/:id',     to: 'tests#run',     as: :run_test
+
+  post '/variant/check/:id', to: 'variants#check', as: :check_variant
 
   get 'login'  => 'user_sessions#new', as: :login
   get 'logout' => 'user_sessions#destroy', as: :logout

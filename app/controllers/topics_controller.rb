@@ -1,4 +1,6 @@
 class TopicsController < ApplicationController
+  before_action :require_teacher
+
   def show
   end
 

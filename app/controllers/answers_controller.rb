@@ -1,4 +1,6 @@
 class AnswersController < ApplicationController
+  before_action :require_teacher
+
   def new
     if params[:question_id] and params[:text]
       answer = Answer.new

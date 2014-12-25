@@ -1,1 +1,11 @@
-h1 Hello, world!
+h2 Включенные тесты
+table
+  thead
+    th.test = "Тест"
+  tbody
+    - Test.where(on: 1).each do |t|
+      form method="get"
+        tr
+          td.test = t.text
+          td
+            a href="#{run_test_path(t.id)}" Пройти

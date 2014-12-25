@@ -3,12 +3,10 @@ class CreateVariants < ActiveRecord::Migration
     create_table :variants do |t|
       t.references :test
       t.integer    :number,   null: false
-      t.references :question, null: false
 
       t.timestamps
     end
 
-    add_index :variants, [:test_id, :number, :question_id], unique: true
     add_index :variants, [:test_id, :number]
   end
 end

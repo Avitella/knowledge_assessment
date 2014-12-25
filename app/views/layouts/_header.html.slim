@@ -9,6 +9,9 @@
 - elsif @user.teacher == 0
   nav class="top-bar"
     section class="top-bar-section"
+      ul class="left"
+        li
+          a href="#{root_path}" Главная
       ul class="right"
         li
           a href="#{logout_path}" Выход
@@ -20,6 +23,8 @@
           a href="#{logout_path}" Выход
     section class="top-bar-section"
       ul class="left"
+        li
+          a href="#{root_path}" Главная
         li
           a href="#{topics_path}" Редактор
         li

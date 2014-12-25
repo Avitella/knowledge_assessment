@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141224232556) do
+ActiveRecord::Schema.define(version: 20141225201719) do
 
   create_table "answers", force: true do |t|
     t.text     "text",        default: "", null: false
@@ -33,11 +33,29 @@ ActiveRecord::Schema.define(version: 20141224232556) do
 
   add_index "questions", ["topic_id"], name: "index_questions_on_topic_id"
 
+  create_table "questions_variants", id: false, force: true do |t|
+    t.integer  "variant_id"
+    t.integer  "question_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "questions_variants", ["variant_id", "question_id"], name: "index_questions_variants_on_variant_id_and_question_id", unique: true
+
+  create_table "results", force: true do |t|
+    t.integer  "variant_id"
+    t.integer  "user_id"
+    t.integer  "assessment", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tests", force: true do |t|
     t.text     "text",                        null: false
     t.integer  "on",              default: 0, null: false
     t.integer  "variants_count",  default: 0, null: false
     t.integer  "questions_count", default: 0, null: false
+    t.integer  "minutes",         default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -74,12 +92,11 @@ ActiveRecord::Schema.define(version: 20141224232556) do
 
   create_table "variants", force: true do |t|
     t.integer  "test_id"
-    t.integer  "number",      null: false
-    t.integer  "question_id", null: false
+    t.integer  "number",     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "variants", ["test_id", "number", "question_id"], name: "index_variants_on_test_id_and_number_and_question_id", unique: true
+  add_index "variants", ["test_id", "number"], name: "index_variants_on_test_id_and_number"
 
 end
