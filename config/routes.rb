@@ -34,6 +34,9 @@ Rails.application.routes.draw do
 
   post '/variant/check/:id', to: 'variants#check', as: :check_variant
 
+  get '/results',       to: 'results#index', as: :results
+  post '/results/show', to: 'results#show',  as: :show_results
+
   get 'login'  => 'user_sessions#new', as: :login
   get 'logout' => 'user_sessions#destroy', as: :logout
 end
