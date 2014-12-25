@@ -34,8 +34,10 @@ ActiveRecord::Schema.define(version: 20141224232556) do
   add_index "questions", ["topic_id"], name: "index_questions_on_topic_id"
 
   create_table "tests", force: true do |t|
-    t.text     "text",                   null: false
-    t.integer  "enabled",    default: 0, null: false
+    t.text     "text",                        null: false
+    t.integer  "on",              default: 0, null: false
+    t.integer  "variants_count",  default: 0, null: false
+    t.integer  "questions_count", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -73,7 +75,7 @@ ActiveRecord::Schema.define(version: 20141224232556) do
   create_table "variants", force: true do |t|
     t.integer  "test_id"
     t.integer  "number",      null: false
-    t.integer  "question_id"
+    t.integer  "question_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

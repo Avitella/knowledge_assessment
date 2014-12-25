@@ -29,12 +29,41 @@ class TestsController < ApplicationController
   end
 
   def destroy
+    test = Test.find(params[:id])
+    if test
+      test.destroy
+    end
+    redirect_to :back
   end
 
   def index
   end
 
   def show
+    @test = Test.find(params[:id])
+  end
+
+  def edit
+    tests = {}
+    params.each do |key, value|
+      if key.include? "test_id:"
+        s = key["test_id:".length...key.length]
+        tests[s.to_i] = 1
+      end
+    end
+
+    ActiveRecord::Base.transaction do
+      Test.find_each do |t|
+        if tests[t.id]
+          t.on = 1
+        else
+          t.on = 0
+        end
+        t.save
+      end
+    end
+
+    redirect_to :back
   end
 
   def save
@@ -80,6 +109,8 @@ class TestsController < ApplicationController
     ActiveRecord::Base.transaction do
       test = Test.new
       test.text = params[:name]
+      test.questions_count = params[:questions_count]
+      test.variants_count = params[:variants_count]
       test.save
       number = 1
       variants.each do |variant|
@@ -94,7 +125,7 @@ class TestsController < ApplicationController
       end
     end
 
-    redirect_to :back
+    redirect_to tests_path
   end
 
   private

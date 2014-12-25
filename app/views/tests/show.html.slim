@@ -1,0 +1,13 @@
+h2 #{@test.text}
+- for number in 1...@test.variants_count + 1
+  h4 Вариант #{number}
+  table
+    thead
+      tr
+        th.name = "Вопрос"
+    tbody
+      - Variant.where(test_id: @test.id, number: number).each do |v|
+        tr
+          td.name = Question.find(v.question_id).text
+          td
+            a href="#{show_question_path(v.question_id)}" Редактировать
