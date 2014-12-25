@@ -6,8 +6,8 @@ h2 #{@test.text}
       tr
         th.name = "Вопрос"
     tbody
-      - Variant.where(test_id: @test.id, number: number).each do |v|
+      - Variant.find_by(test_id: @test.id, number: number).question.each do |v|
         tr
-          td.name = Question.find(v.question_id).text
+          td.name = Question.find(v.id).text
           td
-            a href="#{show_question_path(v.question_id)}" Редактировать
+            a href="#{show_question_path(v.id)}" Редактировать
