@@ -1,5 +1,7 @@
 h2 Результаты за #{@date.strftime(@date_format)}
-table
+form
+  input class="button small" onClick="$('#table').table2CSV();" value="Экспорт csv"
+table id="table"
   thead
     - if @name
       th.name = "Имя"
