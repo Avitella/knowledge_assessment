@@ -1,0 +1,22 @@
+h4 Загрузка пользователей из CSV
+form method="post" action="#{save_users_path}" enctype="multipart/form-data"
+  input type="file" name="users" required=""
+  input type="submit" class="button tiny"
+h2 Пользователи
+form 
+  input class="button small" onClick="$('#table').table2CSV();" value="Экспорт CSV"
+table id="table"
+  thead
+    th.login = "Логин"
+    th.name = "Имя"
+    th.surname = "Фамилия"
+    th.group = "Группа"
+    th.password = "Пароль"
+  tbody
+    - User.find_each do |u|
+      tr
+        td.login = u.login
+        td.name = u.name
+        td.surname = u.surname
+        td.group = u.group
+        td.password = u.password

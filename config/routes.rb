@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   root 'welcome#index'
   
   resources :users
+  post '/users/save', to: 'users#save', as: :save_users
+
   resources :user_sessions
 
   get  '/topics',               to: 'topics#index',     as: :topics

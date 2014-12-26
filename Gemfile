@@ -43,3 +43,6 @@ gem 'slim'
 
 # Generator of test tasks
 gem 'tasks_generator', '>= 1.1'
+
+# Translit
+gem 'translit'
