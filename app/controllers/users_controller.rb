@@ -1,7 +1,7 @@
 require 'csv'
 
 class UsersController < ApplicationController
-  before_action :require_teacher
+  # before_action :require_teacher
   skip_before_filter :require_login, only: [:new, :create]
 
   def new
