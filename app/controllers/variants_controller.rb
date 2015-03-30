@@ -14,6 +14,9 @@ class VariantsController < ApplicationController
     questions.each do |q|
       right[q.id] = 1.0 / q.answer.where(correct: 1).count
       wrong[q.id] = 1.0 / q.answer.where(correct: 0).count
+      if right[q.id] > wrong[q.id]
+        wrong[q.id] = right[q.id]
+      end
     end
     answers.each do |a, _buf|
       ans = Answer.find(a)
