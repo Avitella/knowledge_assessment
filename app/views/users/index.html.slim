@@ -14,9 +14,10 @@ table id="table"
     th.password = "Пароль"
   tbody
     - User.find_each do |u|
-      tr
-        td.login = u.login
-        td.name = u.name
-        td.surname = u.surname
-        td.group = u.group
-        td.password = u.password
+      - if u.teacher != 1
+        tr
+          td.login = u.login
+          td.name = u.name
+          td.surname = u.surname
+          td.group = u.group
+          td.password = u.password
