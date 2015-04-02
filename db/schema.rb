@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141226122212) do
+ActiveRecord::Schema.define(version: 20150402121549) do
 
   create_table "answers", force: true do |t|
     t.text     "text",        default: "", null: false
@@ -22,6 +22,13 @@ ActiveRecord::Schema.define(version: 20141226122212) do
   end
 
   add_index "answers", ["question_id"], name: "index_answers_on_question_id"
+
+  create_table "competences", force: true do |t|
+    t.string   "code",        default: "", null: false
+    t.string   "description", default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "questions", force: true do |t|
     t.text     "text",       default: "", null: false
@@ -76,6 +83,17 @@ ActiveRecord::Schema.define(version: 20141226122212) do
   end
 
   add_index "topics", ["parent_id"], name: "index_topics_on_parent_id"
+
+  create_table "topics_competences", id: false, force: true do |t|
+    t.integer  "topic_id"
+    t.integer  "competence_id"
+    t.integer  "weight"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "topics_competences", ["competence_id"], name: "index_topics_competences_on_competence_id"
+  add_index "topics_competences", ["topic_id"], name: "index_topics_competences_on_topic_id"
 
   create_table "user_sessions", force: true do |t|
     t.integer  "user_id"

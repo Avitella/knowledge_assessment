@@ -42,7 +42,11 @@ gem 'spring',        group: :development
 gem 'slim'
 
 # Generator of test tasks
-gem 'tasks_generator', '>= 1.1'
+#skipping gem installation because cause compilation crashes
+#gem 'tasks_generator', '>= 1.1'
 
 # Translit
 gem 'translit'
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
