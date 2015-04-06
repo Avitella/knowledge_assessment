@@ -55,15 +55,13 @@ class TestsController < ApplicationController
       end
     end
 
-    ActiveRecord::Base.transaction do
-      Test.find_each do |t|
-        if tests[t.id]
-          t.on = 1
-        else
-          t.on = 0
-        end
-        t.save
+    Test.find_each do |t|
+      if tests[t.id]
+        t.on = 1
+      else
+        t.on = 0
       end
+      t.save
     end
 
     redirect_to :back
@@ -109,27 +107,25 @@ class TestsController < ApplicationController
 
     variants = generator.generate()
 
-    ActiveRecord::Base.transaction do
-      test = Test.new
-      test.text = params[:name]
-      test.questions_count = params[:questions_count]
-      test.variants_count = params[:variants_count]
-      test.minutes = params[:minutes_count]
-      test.save
-      number = 1
-      variants.each do |var|
-        variant = Variant.new
-        variant.test_id = test.id
-        variant.number = number
-        variant.save
-        var.each do |q|
-          variant_question = QuestionsVariants.new
-          variant_question.variant_id = variant.id
-          variant_question.question_id = q.question_id
-          variant_question.save
-        end
-        number += 1
+    test = Test.new
+    test.text = params[:name]
+    test.questions_count = params[:questions_count]
+    test.variants_count = params[:variants_count]
+    test.minutes = params[:minutes_count]
+    test.save
+    number = 1
+    variants.each do |var|
+      variant = Variant.new
+      variant.test_id = test.id
+      variant.number = number
+      variant.save
+      var.each do |q|
+        variant_question = QuestionsVariants.new
+        variant_question.variant_id = variant.id
+        variant_question.question_id = q.question_id
+        variant_question.save
       end
+      number += 1
     end
 
     redirect_to tests_path
