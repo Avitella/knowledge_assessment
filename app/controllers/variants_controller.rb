@@ -31,10 +31,17 @@ class VariantsController < ApplicationController
     if @assessment < 0
       @assessment = 0.0
     end
+    @assessment = @assessment.to_i
     result = Result.new
     result.variant_id = variant.id
     result.user_id = @user.id
     result.assessment = @assessment
     result.save
+    answers.each do |a, _buf|
+      answer_log = AnswerLog.new
+      answer_log.result_id = result.id
+      answer_log.answer_id = a
+      answer_log.save
+    end
   end
 end
