@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 20150402121549) do
   create_table "topics_competences", id: false, force: true do |t|
     t.integer  "topic_id"
     t.integer  "competence_id"
-    t.integer  "weight"
+    t.integer  "weight",        default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
