@@ -43,4 +43,6 @@ Rails.application.routes.draw do
   get 'logout' => 'user_sessions#destroy', as: :logout
   
   resources :competences
+  post 'competences/attach' => 'competences#attach'
+  get 'competence/:c_id/detach_from/:t_id' => 'competences#detach', as: :competence_detach
 end

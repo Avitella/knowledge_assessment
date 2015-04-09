@@ -3,7 +3,7 @@ class CreateTopicsCompetences < ActiveRecord::Migration
     create_table :topics_competences, id: false do |t|
       t.references :topic, index: true
       t.references :competence, index: true
-	  t.integer :weight
+	    t.integer :weight
 	  
       t.timestamps
     end
