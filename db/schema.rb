@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141226122212) do
+ActiveRecord::Schema.define(version: 20150406212742) do
+
+  create_table "answer_logs", force: true do |t|
+    t.integer  "result_id"
+    t.integer  "answer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "answers", force: true do |t|
     t.text     "text",        default: "", null: false
@@ -46,14 +53,6 @@ ActiveRecord::Schema.define(version: 20141226122212) do
     t.integer  "variant_id"
     t.integer  "user_id"
     t.integer  "assessment", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "statistics", force: true do |t|
-    t.integer  "result_id"
-    t.integer  "topic_id"
-    t.float    "ratio"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
