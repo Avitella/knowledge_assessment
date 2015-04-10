@@ -5,4 +5,7 @@ class Topic < ActiveRecord::Base
 
   has_many :topics_competences, class_name: "TopicsCompetences", dependent: :delete_all
   has_many :competences, through: :topics_competences
+
+  has_many :problem_zones, dependent: :delete_all
+  has_many :results, through: :problem_zones
 end

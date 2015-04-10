@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150402121549) do
+ActiveRecord::Schema.define(version: 20150409202126) do
 
   create_table "answers", force: true do |t|
     t.text     "text",        default: "", null: false
@@ -23,12 +23,34 @@ ActiveRecord::Schema.define(version: 20150402121549) do
 
   add_index "answers", ["question_id"], name: "index_answers_on_question_id"
 
+  create_table "competence_marks", id: false, force: true do |t|
+    t.integer  "result_id"
+    t.integer  "competence_id"
+    t.integer  "mark",          default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "competence_marks", ["competence_id"], name: "index_competence_marks_on_competence_id"
+  add_index "competence_marks", ["result_id"], name: "index_competence_marks_on_result_id"
+
   create_table "competences", force: true do |t|
     t.string   "code",        default: "", null: false
     t.string   "description", default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "problem_zones", id: false, force: true do |t|
+    t.integer  "result_id"
+    t.integer  "topic_id"
+    t.integer  "mark",       default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "problem_zones", ["result_id"], name: "index_problem_zones_on_result_id"
+  add_index "problem_zones", ["topic_id"], name: "index_problem_zones_on_topic_id"
 
   create_table "questions", force: true do |t|
     t.text     "text",       default: "", null: false
