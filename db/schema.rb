@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406212742) do
+ActiveRecord::Schema.define(version: 20150409202126) do
 
   create_table "answer_logs", force: true do |t|
     t.integer  "result_id"
@@ -29,6 +29,35 @@ ActiveRecord::Schema.define(version: 20150406212742) do
   end
 
   add_index "answers", ["question_id"], name: "index_answers_on_question_id"
+
+  create_table "competence_marks", id: false, force: true do |t|
+    t.integer  "result_id"
+    t.integer  "competence_id"
+    t.integer  "mark",          default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "competence_marks", ["competence_id"], name: "index_competence_marks_on_competence_id"
+  add_index "competence_marks", ["result_id"], name: "index_competence_marks_on_result_id"
+
+  create_table "competences", force: true do |t|
+    t.string   "code",        default: "", null: false
+    t.string   "description", default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "problem_zones", id: false, force: true do |t|
+    t.integer  "result_id"
+    t.integer  "topic_id"
+    t.integer  "mark",       default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "problem_zones", ["result_id"], name: "index_problem_zones_on_result_id"
+  add_index "problem_zones", ["topic_id"], name: "index_problem_zones_on_topic_id"
 
   create_table "questions", force: true do |t|
     t.text     "text",       default: "", null: false
@@ -75,6 +104,17 @@ ActiveRecord::Schema.define(version: 20150406212742) do
   end
 
   add_index "topics", ["parent_id"], name: "index_topics_on_parent_id"
+
+  create_table "topics_competences", id: false, force: true do |t|
+    t.integer  "topic_id"
+    t.integer  "competence_id"
+    t.integer  "weight",        default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "topics_competences", ["competence_id"], name: "index_topics_competences_on_competence_id"
+  add_index "topics_competences", ["topic_id"], name: "index_topics_competences_on_topic_id"
 
   create_table "user_sessions", force: true do |t|
     t.integer  "user_id"

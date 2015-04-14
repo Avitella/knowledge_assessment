@@ -22,6 +22,7 @@ class TopicsController < ApplicationController
 
   def edit
     @topic = Topic.find(params[:id])
+	@competences = Competence.all
   end
 
   def edit_text
